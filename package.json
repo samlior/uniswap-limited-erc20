@@ -4,7 +4,7 @@
   "main": "hardhat.config.js",
   "scripts": {
     "node": "npx hardhat node",
-    "deploy": "npx hardhat run --network localhost scripts/deploy.js",
+    "deploy:localhost": "npx hardhat run --network localhost scripts/deploy.js",
     "compile": "npx hardhat compile"
   },
   "license": "GPL-3.0-or-later",
@@ -17,7 +17,6 @@
     "hardhat": "^2.1.1"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^3.2.0",
-    "@uniswap/v2-periphery": "^1.1.0-beta.0"
+    "@openzeppelin/contracts": "^3.2.0"
   }
 }
