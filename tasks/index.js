@@ -40,3 +40,53 @@ task('balance:erc20', "Prints an account's ERC20 balance")
     console.log(bal, symbol, '(in wei)')
     console.log(new BN(bal).div(new BN(10).pow(new BN(dec))).toString(), symbol, '(in eth)')
   })
+
+task('mint', 'Mint ERC20 token to account')
+  .addParam('account', 'User account')
+  .addParam('amount', 'Mint amount', 10000, types.int)
+  .addOptionalParam('addr', 'Contract address')
+  .setAction(async (taskArgs, { deployments, web3, getNamedAccounts }) => {
+    const { account, amount, addr } = taskArgs
+    const { deployer } = await getNamedAccounts()
+    const { contract } = await createWeb3Contract({ address: addr, name: 'UniswapLimitedERC20', deployments, web3, from: deployer })
+    const dec = await contract.methods.decimals().call()
+    await contract.methods.mint(account, new BN(amount).mul(new BN(10).pow(new BN(dec)))).send()
+    console.log('mint to', account, 'success')
+  })
+
+task('allow', 'Allow the amount to be used for sales')
+  .addParam('account', 'User account')
+  .addParam('amount', 'Allow amount', 10000, types.int)
+  .addOptionalParam('addr', 'Contract address')
+  .setAction(async (taskArgs, { deployments, web3, getNamedAccounts }) => {
+    const { account, amount, addr } = taskArgs
+    const { deployer } = await getNamedAccounts()
+    const { contract } = await createWeb3Contract({ address: addr, name: 'UniswapLimitedERC20', deployments, web3, from: deployer })
+    const dec = await contract.methods.decimals().call()
+    await contract.methods.allow(account, new BN(amount).mul(new BN(10).pow(new BN(dec)))).send()
+    console.log('allow', account, 'success')
+  })
+
+task('allowmax', 'Allowmax the amount to be used for sales')
+  .addParam('account', 'User account')
+  .addOptionalParam('addr', 'Contract address')
+  .setAction(async (taskArgs, { deployments, web3, getNamedAccounts }) => {
+    const { account, addr } = taskArgs
+    const { deployer } = await getNamedAccounts()
+    const { contract } = await createWeb3Contract({ address: addr, name: 'UniswapLimitedERC20', deployments, web3, from: deployer })
+    await contract.methods.allow(account, '0x' + 'f'.repeat(64)).send()
+    console.log('allowmax', account, 'success')
+  })
+
+task('allowamount', 'Query the allow amount of account')
+  .addParam('account', 'User account')
+  .addOptionalParam('addr', 'Contract address')
+  .setAction(async (taskArgs, { deployments, web3 }) => {
+    const { account, addr } = taskArgs
+    const { contract } = await createWeb3Contract({ address: addr, name: 'UniswapLimitedERC20', deployments, web3 })
+    const dec = await contract.methods.decimals().call()
+    const bal = await contract.methods.allowAmount(account).call()
+    const symbol = await contract.methods.symbol().call()
+    console.log(bal, symbol, '(in wei)')
+    console.log(new BN(bal).div(new BN(10).pow(new BN(dec))).toString(), symbol, '(in eth)')
+  })
