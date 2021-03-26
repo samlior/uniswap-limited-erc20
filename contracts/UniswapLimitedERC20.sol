@@ -4,7 +4,7 @@ pragma solidity 0.6.2;
 
 import "@openzeppelin/contracts/presets/ERC20PresetMinterPauser.sol";
 
-contract UniswapERC20 is ERC20PresetMinterPauser {
+contract UniswapLimitedERC20 is ERC20PresetMinterPauser {
     bytes32 public constant ALLOW_ROLE = keccak256("ALLOW_ROLE");
     address public pair;
     mapping(address => uint256) public allowAmount;
