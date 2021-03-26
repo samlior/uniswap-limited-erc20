@@ -62,3 +62,11 @@ You can simply run the task like this:
 npx hardhat --network localhost allow --account 0x...abc --amount 100
 npx hardhat --network localhost allowamount --account 0x...abc
 ```
+
+## Verify
+
+**notice: please first make sure you can access [api.etherscan.io](https://api.etherscan.io)**
+
+```
+npx hardhat verify --network goerli 0x...abc "Test Limited ERC20" "TLE" "18" "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f" "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f"
+```
