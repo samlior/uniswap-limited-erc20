@@ -7,7 +7,7 @@
     "deploy:localhost": "npx hardhat run --network localhost scripts/deploy.js",
     "compile": "npx hardhat compile"
   },
-  "license": "GPL-3.0-or-later",
+  "license": "MIT",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
@@ -17,6 +17,6 @@
     "hardhat": "^2.1.1"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^3.2.0"
+    "@openzeppelin/contracts": "3.2.0"
   }
 }
